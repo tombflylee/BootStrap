@@ -11,12 +11,22 @@
 .col-sm-9, .col-xs-1, .col-xs-10, .col-xs-11, .col-xs-12,
 .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6,
 .col-xs-7, .col-xs-8, .col-xs-9 {<br>
-    position: relative;
-    min-height: 1px;
+    position: relative;<br>
+    min-height: 1px;<br>
     padding-right: 15px;}<br><br>
 注意每一列左右都有15px的padding。<br><br>
 <em>point-2</em><br><br>
-class="container":<br>会根据实际的屏幕尺寸，调整width的大小。<br><br>
+class="container":<br>会根据实际的屏幕尺寸，调整width的大小。<br>
+.container {<br>
+    padding-right: 15px;<br>
+    padding-left: 15px;<br>
+    margin-right: auto;<br>
+    margin-left: auto;<br>
+}<br>
+.row {<br>
+    margin-right: -15px;<br>
+    margin-left: -15px;<br>
+}<br>注意container也有15px的padding，但是row的-15px抵消了container和col同时的15pxpadding。<br><br>
 <em>point-3</em><br><br>
 如果每一列不为其设置四中屏幕大小的类:<br>例:只设置了class="col-md-6",则当屏幕小于md规定的尺寸时,
 所有列会触发float:left属性。

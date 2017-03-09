@@ -36,3 +36,29 @@ padding-right: 15px;<br>
     padding-left: 15px;<br>
     margin-right: auto;<br>
     margin-left: auto;<br><br>
+一般用在导航条的最外层<nav>标签上的:
+.navbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+}
+.navbar-default {
+    background-color: #f8f8f8;
+    border-color: #e7e7e7;
+}
+.navbar-static-top :
+类即可创建一个与页面等宽度的导航条，它会随着页面向下滚动而消失。
+
+.navbar-fixed-top :
+类可以让导航条固定在顶部;
+此时需要给body加一个padding-top,以防挡住内容。
+
+.navbar-fixed-bottom :
+类可以让导航条固定在底部
+此时需要给body加一个padding-bottom
+
+.navbar-inverse {:会影响其中所有有关组件的颜色。
+    background-color: #222;
+    border-color: #080808;
+}

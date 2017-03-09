@@ -30,3 +30,9 @@ class="container":<br>会根据实际的屏幕尺寸，调整width的大小。<b
 ## point-3<br><br>
 如果每一列不为其设置四中屏幕大小的类:<br>例:只设置了class="col-md-6",则当屏幕小于md规定的尺寸时,
 所有列会触发float:left属性。
+## point-4:导航条部分：
+container-fluid:类似于100%宽度。<br>
+padding-right: 15px;<br>
+    padding-left: 15px;<br>
+    margin-right: auto;<br>
+    margin-left: auto;<br><br>

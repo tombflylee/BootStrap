@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+    <style>
+        *{
+            font-family:"Microsoft YaHei";
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="bootstrap-3.3.7-dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container" data-ng-app="cartApp" data-ng-controller="cartCtrl">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>产品编号</th>
+            <th>产品名字</th>
+            <th>产品数量</th>
+            <th>产品单价</th>
+            <th>产品总价</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-ng-repeat="x in cart">
+            <td>{{x.id}}</td>
+            <td>{{x.name}}</td>
+            <td>
+                <button class="btn btn-primary" data-ng-click="minus(x.id)">
+                    <span class="glyphicon glyphicon-minus"></span>
+                </button>
+                <input type="text" value="{{x.quantity}}" data-ng-model="x.quantity">
+                <button class="btn btn-primary" data-ng-click="plus(x.id)">
+                    <span class="glyphicon glyphicon-plus"></span>
+                </button>
+            </td>
+            <td>{{x.price}}</td>
+            <td>{{x.price * x.quantity}}</td>
+            <td><button class="btn btn-danger" data-ng-click="remove(x.id)">移除</button></td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <th>总购买数量</th>
+            <td>{{totalNum()}}</td>
+            <th>总购买价</th>
+            <td>{{totalPrice()}}</td>
+            <td colspan="2"><button class="btn btn-danger" data-ng-click="removeAll()">清空购物车</button></td>
+        </tr>
+        </tfoot>
+    </table>
+    <div class="alert alert-warning" data-ng-hide="cart.length">您的购物车为空</div>
+</div>
+</body>
+<script src="js/angular.min.js"></script>
+<script>
+    var cartApp=angular.module("cartApp",[]);
+    cartApp.controller("cartCtrl",function($scope){
+        $scope.cart=[
+            {
+                id:101,
+                name:"iPhone5",
+                quantity:3,
+                price:2500
+            },
+            {
+                id:102,
+                name:"iPhone5s",
+                quantity:2,
+                price:3200
+            },
+            {
+                id:103,
+                name:"iPhone6",
+                quantity:5,
+                price:3900
+            },
+            {
+                id:104,
+                name:"iPhone6s",
+                quantity:5,
+                price:4500
+            },
+            {
+                id:105,
+                name:"iPhone7",
+                quantity:9,
+                price:5200
+            }
+        ];
+        $scope.totalNum=function(){
+            var total=0;
+            angular.forEach($scope.cart,function(value){
+                total+=Number(value.quantity,10);
+            })
+            return total;
+        }
+        $scope.totalPrice=function(){
+            var totalPrice=0;
+            angular.forEach($scope.cart,function (value) {
+                totalPrice+=value.quantity * value.price;
+            })
+            return totalPrice;
+        }
+        $scope.remove=function(id){
+            var index=-1;
+            angular.forEach($scope.cart,function(value,key){
+                if(value.id==id){
+                    index=key;
+                }
+            })
+            if(index!=-1){
+                $scope.cart.splice(index,1);
+            }
+        }
+        $scope.removeAll=function(){
+            $scope.cart=[];
+        }
+        $scope.minus=function(id){
+            var index=-1;
+            angular.forEach($scope.cart,function(value,key){
+                if(value.id==id){
+                    index=key;
+                }
+            })
+            if(index!=-1){
+                if($scope.cart[index].quantity>1){
+                    --$scope.cart[index].quantity;
+                }else{
+                    var con=confirm("是否要移除该产品?");
+                    if(con){
+                        $scope.remove(id);
+                    }
+                }
+            }
+        }
+        $scope.plus=function(id){
+            var index=-1;
+            angular.forEach($scope.cart,function(value,key){
+                if(value.id==id){
+                    index=key;
+                }
+            })
+            if(index!=-1){
+                ++$scope.cart[index].quantity;
+            }
+        }
+        $scope.$watch("cart",function(newVal,oldVal){
+            angular.forEach(newVal,function(value,key){
+                if(value.quantity<1){
+                    alert("数量不能小于1");
+                    value.quantity=oldVal[key].quantity;
+                }
+            })
+        },true)
+    })
+</script>
+</html>
